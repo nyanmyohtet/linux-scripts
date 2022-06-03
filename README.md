@@ -1,7 +1,7 @@
 # linux-scripts
 Linux Scripts
 
-## Install Timeshift
+## Install [Timeshift](https://teejeetech.com/timeshift/)
 
 ```sh
 sudo apt install timeshift
