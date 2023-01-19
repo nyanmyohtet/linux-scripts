@@ -7,12 +7,4 @@ Linux Scripts
 sudo apt install timeshift
 ```
 
-## Install Java
-
-```sh
-sudo apt install default-jre
-```
-
-```sh
-sudo apt install default-jdk
-```
+- [Install JDK 11 and Maven](./install_jdk_and_maven.sh)
