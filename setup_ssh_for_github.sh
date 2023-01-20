@@ -1,7 +1,18 @@
 #!/bin/bash
 
-echo -n "Enter your email address: "
-read email
+# Get user input for name and email
+read -p "Enter your git user name: " name
+read -p "Enter your git email: " email
+
+# Set git config globally for user name and email
+git config --global user.name "$name"
+git config --global user.email "$email"
+
+# Check git config for user name and email
+git config --global --list
+
+# echo -n "Enter your email address: "
+# read email
 
 # Generate a new SSH key using ed25519 algorithm
 ssh-keygen -t ed25519 -C "$email"
