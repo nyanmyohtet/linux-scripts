@@ -1,6 +1,14 @@
 # linux-scripts
 Linux Scripts
 
+## Update and Upgrade
+
+```bash
+wget https://github.com/nyanmyohtet/linux-scripts/raw/master/update_and_upgrade.sh \
+&& chmod +x update_and_upgrade.sh \
+&& ./update_and_upgrade.sh -u
+```
+
 ## Install [Timeshift](https://teejeetech.com/timeshift/)
 
 ```sh
