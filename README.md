@@ -9,6 +9,8 @@ wget https://github.com/nyanmyohtet/linux-scripts/raw/master/update_and_upgrade.
 && ./update_and_upgrade.sh -u
 ```
 
+## [Ubuntu-22.04_InitialSetup.sh](https://gist.github.com/nyanmyohtet/005b4c008124142e5df8f83e6d8bd264)
+
 ## Install [Timeshift](https://teejeetech.com/timeshift/)
 
 ```sh
