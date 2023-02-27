@@ -92,6 +92,52 @@ echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 ## Set the timezone
 
+```sh
+ln -sf /usr/share/zoneinfo/Asia/Rangoon /etc/localtime
+```
+
+## Set local time
+
+```sh
+hwclock --systohc --utc
+```
+
+Then, check the time:
+
+```sh
+date
+```
+
+## Set hostname
+
+```sh
+echo arch > /etc/hostname
+vim /etc/hosts
+```
+
+Then, the following lines:
+
+```
+127.0.0.1        localhost
+::1              localhost
+127.0.1.1        archPC
+```
+
+## Enable network
+
+```sh
+pacman -S networkmanager
+
+systemctl enable NetworkManager
+```
+
+## Set root password
+
+`passwd`
+
+Then type password twice.
+
+## Install GRUB
 
 Ref: 
 - https://averagelinuxuser.com/a-step-by-step-arch-linux-installation-guide
