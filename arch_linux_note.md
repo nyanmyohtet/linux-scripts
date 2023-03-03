@@ -143,3 +143,11 @@ Ref:
 - https://averagelinuxuser.com/a-step-by-step-arch-linux-installation-guide
 - https://itsfoss.com/install-arch-linux
 - https://averagelinuxuser.com/arch-linux-after-install
+
+## Error fixed
+
+### No sound
+
+Installed `sof-firmware`
+
+Ref: https://bbs.archlinux.org/viewtopic.php?id=269729
