@@ -15,7 +15,11 @@ wget -qO- https://github.com/nyanmyohtet/linux-scripts/raw/master/update_and_upg
 sudo apt install timeshift
 ```
 
-- [Install JDK 11 and Maven](./install_jdk_and_maven.sh)
+## Install JDK 11 and Maven
+
+```sh
+wget -qO- https://github.com/nyanmyohtet/linux-scripts/raw/master/install_jdk_and_maven.sh | sh -
+```
 
 ## After installing MySQL 8.0
 
