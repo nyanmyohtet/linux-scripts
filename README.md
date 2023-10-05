@@ -4,9 +4,7 @@ Linux Scripts
 ## Update and Upgrade
 
 ```bash
-wget https://github.com/nyanmyohtet/linux-scripts/raw/master/update_and_upgrade.sh \
-&& chmod +x update_and_upgrade.sh \
-&& ./update_and_upgrade.sh -u
+wget -qO- https://github.com/nyanmyohtet/linux-scripts/raw/master/update_and_upgrade.sh | sh -
 ```
 
 ## [Ubuntu-22.04_InitialSetup.sh](https://gist.github.com/nyanmyohtet/005b4c008124142e5df8f83e6d8bd264)
