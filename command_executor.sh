@@ -1,9 +1,19 @@
 #!/bin/bash
+set -euo pipefail
 
 # Log file location
 LOG_DIR="/home/nyan/scripts/log"
 DATE=$(date +"%Y-%m-%d")
 LOG_FILE="$LOG_DIR/command_executor_$DATE.log"
+
+# Ensure log directory exists
+mkdir -p "$LOG_DIR"
+
+# Timestamp for logging
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+
+# Trap for cleanup and error logging
+trap 'echo "$TIMESTAMP | Script exited unexpectedly. Last command: $CMD" >> "$LOG_FILE"' ERR EXIT
 
 # Check if a command was provided
 if [ $# -eq 0 ]; then
@@ -23,12 +33,9 @@ fi
 # Restrict PATH for safety
 export PATH="/usr/bin:/bin"
 
-# Timestamp for logging
-TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
-
 # Execute the command
 echo "Executing: $CMD"
-OUTPUT=$(eval "$CMD" 2>&1)
+OUTPUT=$(eval "$CMD" 2>&1 || true)  # Capture output even if command fails
 STATUS=$?
 
 # Print results
@@ -43,8 +50,13 @@ else
 fi
 
 # Log the execution details
-echo "$TIMESTAMP | Command: $CMD | Status: $STATUS" >> "$LOG_FILE"
-echo "$OUTPUT" >> "$LOG_FILE"
-echo "----------------------------------------" >> "$LOG_FILE"
+{
+    echo "$TIMESTAMP | Command: $CMD | Status: $STATUS"
+    echo "$OUTPUT"
+    echo "----------------------------------------"
+} >> "$LOG_FILE"
+
+# Remove trap after successful completion
+trap - ERR EXIT
 
 exit $STATUS
