@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Log file location
-LOG_FILE="/home/nyan/scripts/log/command_executor.log"
+LOG_DIR="/home/nyan/scripts/log"
+DATE=$(date +"%Y-%m-%d")
+LOG_FILE="$LOG_DIR/command_executor_$DATE.log"
 
 # Check if a command was provided
 if [ $# -eq 0 ]; then
