@@ -4,7 +4,7 @@ set -euo pipefail
 # Log file location
 LOG_DIR="/home/nyan/scripts/log"
 DATE=$(date +"%Y-%m-%d")
-LOG_FILE="$LOG_DIR/command_executor_$DATE.log"
+LOG_FILE="$LOG_DIR/$0_$DATE.log"
 
 # Ensure log directory exists
 mkdir -p "$LOG_DIR"
