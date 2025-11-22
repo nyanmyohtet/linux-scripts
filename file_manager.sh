@@ -3,25 +3,28 @@ set -euo pipefail
 
 # Usage:
 # ./file_manager.sh <action> [arguments]
-# Actions:
-#   create-folder <folder>
-#   create-file <file>
-#   list-folder <folder>
-#   move-file <source> <destination>
-#   copy-file <source> <destination>
-#   delete-file <file>
-#   delete-folder <folder>
+# Actions (long | shorthand):
+#   create-folder   | mkd    <folder>
+#   create-file     | mkf    <file>
+#   list-folder     | lsf    <folder>
+#   move-file       | mvf    <source> <destination>
+#   copy-file       | cpf    <source> <destination>
+#   delete-file     | delf|rmf    <file>
+#   delete-folder   | rmd    <folder>
+#   show-log        | log
 
-# Check if a action was provided
+# Check if an action was provided
 if [ $# -eq 0 ]; then
-    echo "Usage: $0 <action>"
+    echo "Usage: $0 <action> [arguments]"
     exit 1
 fi
 
-# Log file location
+# Log file location (ensure directory exists)
 LOG_DIR="/home/nyan/scripts/log"
+mkdir -p "$LOG_DIR" 2>/dev/null || true
 DATE=$(date +"%Y-%m-%d")
-LOG_FILE="$LOG_DIR/$0_$DATE.log"
+SCRIPT_NAME=$(basename "$0")
+LOG_FILE="$LOG_DIR/${SCRIPT_NAME}_$DATE.log"
 
 log_action() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') | $1" >> "$LOG_FILE"
@@ -30,7 +33,7 @@ log_action() {
 action=$1
 
 case $action in
-    create-folder)
+    create-folder|mkd)
         if mkdir -p "$2" 2>/dev/null; then
             echo "Folder '$2' created."
             log_action "SUCCESS: Created folder '$2'"
@@ -39,7 +42,7 @@ case $action in
             log_action "ERROR: Failed to create folder '$2'"
         fi
         ;;
-    create-file)
+    create-file|mkf)
         if touch "$2" 2>/dev/null; then
             echo "File '$2' created."
             log_action "SUCCESS: Created file '$2'"
@@ -48,7 +51,7 @@ case $action in
             log_action "ERROR: Failed to create file '$2'"
         fi
         ;;
-    list-folder)
+    list-folder|lsf)
         if [ -d "$2" ]; then
             ls -lh "$2"
             log_action "SUCCESS: Listed folder '$2'"
@@ -57,7 +60,7 @@ case $action in
             log_action "ERROR: Folder '$2' not found"
         fi
         ;;
-    move-file)
+    move-file|mvf)
         if [ -f "$2" ]; then
             if mv "$2" "$3" 2>/dev/null; then
                 echo "File moved from '$2' to '$3'."
@@ -71,7 +74,7 @@ case $action in
             log_action "ERROR: Source file '$2' not found"
         fi
         ;;
-    copy-file)
+    copy-file|cpf)
         if [ -f "$2" ]; then
             if cp "$2" "$3" 2>/dev/null; then
                 echo "File copied from '$2' to '$3'."
@@ -85,7 +88,7 @@ case $action in
             log_action "ERROR: Source file '$2' not found"
         fi
         ;;
-    delete-file)
+    delete-file|delf|rmf )
         if [ -f "$2" ]; then
             if rm -f "$2" 2>/dev/null; then
                 echo "File '$2' deleted."
@@ -99,7 +102,7 @@ case $action in
             log_action "ERROR: File '$2' not found"
         fi
         ;;
-    delete-folder)
+    delete-folder|deld|rmd)
         if [ -d "$2" ]; then
             if rm -rf "$2" 2>/dev/null; then
                 echo "Folder '$2' deleted."
@@ -113,7 +116,7 @@ case $action in
             log_action "ERROR: Folder '$2' not found"
         fi
         ;;
-    show-log)
+    show-log|log)
         if [ -f "$LOG_FILE" ]; then
             cat "$LOG_FILE"
         else
