@@ -35,24 +35,25 @@ export PATH="/usr/bin:/bin"
 
 # Execute the command
 echo "Executing: $CMD"
-OUTPUT=$(eval "$CMD" 2>&1 || true)  # Capture output even if command fails
-STATUS=$?
 
-# Print results
-if [ $STATUS -eq 0 ]; then
+# Log command execution start
+echo "$TIMESTAMP | Command: $CMD | Status: Starting" >> "$LOG_FILE"
+
+# Execute command and pipe output line by line
+STATUS=0
+if eval "$CMD" 2>&1 | while IFS= read -r line; do
+    echo "$line"
+    echo "$TIMESTAMP | $line" >> "$LOG_FILE"
+done; then
     echo "✅ Command executed successfully."
-    echo "Output:"
-    echo "$OUTPUT"
 else
+    STATUS=$?
     echo "❌ Command failed with exit status $STATUS."
-    echo "Error Output:"
-    echo "$OUTPUT"
 fi
 
-# Log the execution details
+# Log completion
 {
     echo "$TIMESTAMP | Command: $CMD | Status: $STATUS"
-    echo "$OUTPUT"
     echo "----------------------------------------"
 } >> "$LOG_FILE"
 
