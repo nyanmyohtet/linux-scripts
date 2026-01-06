@@ -1,6 +1,9 @@
 #!/bin/bash
-set -euo pipefail
 
+##################################
+# Script: file_manager.sh
+# Description: A simple file management script to create, list, move, copy, and delete files and folders.
+#              Logs all actions with timestamps.
 # Usage:
 # ./file_manager.sh <action> [arguments]
 # Actions (long | shorthand):
@@ -12,6 +15,9 @@ set -euo pipefail
 #   delete-file     | delf|rmf    <file>
 #   delete-folder   | rmd    <folder>
 #   show-log        | log
+##################################
+
+set -euo pipefail
 
 # Check if an action was provided
 if [ $# -eq 0 ]; then
@@ -21,10 +27,12 @@ fi
 
 # Log file location (ensure directory exists)
 LOG_DIR="/home/nyan/scripts/log"
-mkdir -p "$LOG_DIR" 2>/dev/null || true
 DATE=$(date +"%Y-%m-%d")
 SCRIPT_NAME=$(basename "$0")
 LOG_FILE="$LOG_DIR/${SCRIPT_NAME}_$DATE.log"
+
+# Ensure log directory exists
+mkdir -p "$LOG_DIR"
 
 log_action() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') | $1" >> "$LOG_FILE"
