@@ -1,4 +1,12 @@
 #!/bin/bash
+
+##################################################
+# Script: command_executor.sh
+# Description: Executes a given command, logs output
+#              with timestamps, and indicates success or failure.
+# Usage: ./command_executor.sh <command>
+##################################################
+
 set -euo pipefail
 
 # Log file location
@@ -45,10 +53,10 @@ if eval "$CMD" 2>&1 | while IFS= read -r line; do
     echo "$line"
     echo "$TIMESTAMP | $line" >> "$LOG_FILE"
 done; then
-    echo "✅ Command executed successfully."
+    echo "Command executed successfully."
 else
     STATUS=$?
-    echo "❌ Command failed with exit status $STATUS."
+    echo "Command failed with exit status $STATUS."
 fi
 
 # Log completion
